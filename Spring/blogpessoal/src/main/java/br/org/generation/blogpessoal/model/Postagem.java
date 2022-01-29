@@ -1,5 +1,7 @@
 package br.org.generation.blogpessoal.model;
 
+
+
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -14,6 +16,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
 
 @Entity // informa que vou criar uma tabela da minha classe
 @Table(name = "tb_postagens") // create table tb_postagens
@@ -37,7 +41,11 @@ public class Postagem {
 	
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
-	private TemaModel tema;
+	private Tema tema;
+	
+	@ManyToOne
+    @JsonIgnoreProperties("postagem")
+    private Usuario usuario;
 	
 	public Long getId() {
 		return id;
@@ -63,6 +71,21 @@ public class Postagem {
 	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
+	
+    public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	public Tema getTema() {
+		return tema;
+	}
+	public void setTema(Tema tema) {
+		this.tema = tema;
+	}
+	
+	
 	
 	
 
