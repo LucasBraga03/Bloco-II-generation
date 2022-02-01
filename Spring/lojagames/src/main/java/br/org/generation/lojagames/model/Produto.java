@@ -1,7 +1,9 @@
 package br.org.generation.lojagames.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,9 +15,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.UpdateTimestamp;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
 
 @Entity
 @Table (name = "tb_produto")
@@ -38,14 +43,17 @@ public class Produto {
 	@Positive (message = " O valor não pode ser menor ou igual a 0! ")
 	private Float valor;
 	
-	
+	@Column(name="data_lancamento")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dataLancamento;
 
-	@UpdateTimestamp
-	private LocalDateTime data;
-	
 	@ManyToOne
 	@JsonIgnoreProperties("produto")
-	private CategoriaModel categoria;
+	private Categoria categoria;
+	
+	@ManyToOne
+    @JsonIgnoreProperties("postagem")
+    private Usuario usuario;
 
 	public Long getId() {
 		return id;
@@ -79,19 +87,20 @@ public class Produto {
 		this.valor = valor;
 	}
 
-	public LocalDateTime getData() {
-		return data;
+	
+	public LocalDate getDataLancamento() {
+		return dataLancamento;
 	}
 
-	public void setData(LocalDateTime data) {
-		this.data = data;
+	public void setDataLancamento(LocalDate dataLancamento) {
+		this.dataLancamento = dataLancamento;
 	}
-	
-	public CategoriaModel getCategoria() {
+
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(CategoriaModel categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 	

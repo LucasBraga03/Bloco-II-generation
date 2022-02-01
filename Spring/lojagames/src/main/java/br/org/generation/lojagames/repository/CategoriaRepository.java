@@ -2,10 +2,13 @@ package br.org.generation.lojagames.repository;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-import br.org.generation.lojagames.model.CategoriaModel;
+import org.springframework.stereotype.Repository;
 
-public interface CategoriaRepository extends JpaRepository <CategoriaModel, Long> {
+import br.org.generation.lojagames.model.Categoria;
+
+@Repository
+public interface CategoriaRepository extends JpaRepository <Categoria, Long> {
 	
-	List<CategoriaModel> findAllByTipoContainingIgnoreCase(String tipo);
+	List<Categoria> findAllByTipoContainingIgnoreCase(String tipo);
 
 }
